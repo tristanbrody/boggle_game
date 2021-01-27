@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Boggle!{% endblock %}
+{% block content %}
+
+<div class="container">
+    {% for row in session['board'] %}
+    <div class="row">
+        {% for letter in row %}
+        <div class="card col">
+            <p class="letter text-center">
+                {{letter}}
+            </p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="d-flex justify-content-start mt-3">
+        <form action="" method="POST" data-form="word-form">
+            <label for="guess">
+                <input type="text" id="guess" placeholder="Enter a word" name="guess">
+            </label>
+            <button class="btn-sm btn-primary" id="submit-button"> Submit</button>
+        </form>
+        <form action="/reset" method="POST" data-form="reset-form" class="hidden">
+            <button class="btn-sm btn-danger ml-1">Restart</button>
+        </form>
+        <h5 class="ml-3" id="total-score">Total Points: 0</h5>
+        <h5 class="ml-3" id="game-timer">Time remaining: 60</h5>
+        <h5 class="ml-3" id="guess-response"></h5>
+    </div>
+
+    <table class=" table table-striped" aria-label="Table for game results">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Guesses
+                </th>
+                <th scope="col">
+                    Points
+                </th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

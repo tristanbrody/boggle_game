@@ -1,0 +1,21 @@
+.letter {
+	margin: 10px;
+	font-weight: 600;
+	font-size: 1.5rem;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:active:focus:not(:disabled):not(.disabled),
+.btn:focus,
+.btn:active,
+.btn:hover {
+	box-shadow: none !important;
+	text-decoration: none;
+	outline: 0;
+}
+
+.hidden {
+	display: none;
+}
