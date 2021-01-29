@@ -13,7 +13,7 @@ boggle_game = Boggle()
 def home_page():
     """
     Get requests to home page will create a new game board and set session variables. 
-    Post requests will call a helper function to validate input and return JSON output. 
+    Post requests, depending on what data they have, will either update the high score var in session, or call a helper function to validate input and return JSON output. 
     """
     if request.method == 'GET':
         reset_session()
@@ -29,12 +29,14 @@ def home_page():
 
 @app.route('/reset', methods=['POST'])
 def restart_game():
+    """Route used for restart game button"""
     return redirect(url_for('home_page'))
 
+# helper functions
 def update_game_results():
+    """At end of game, update session variables"""
+    session['games_played'] = session.get('games_played', 0) + 1
     high_score = session.get('high_score', 0)
-    print(request.method)
-    print(request.json)
     session['high_score'] = request.json['score'] if request.json['score'] > high_score else high_score 
 
 def handle_input(word):
@@ -54,11 +56,11 @@ def handle_input(word):
     return word_result
 
 def reset_session():
+    """Start new game"""
     session['board'] = boggle_game.make_board()
     session['guesses'] = []
     session['total_points'] = 0
 
 def update_score(word):
-    print('should be updating session')
+    """Update total points variable in session"""
     session['total_points'] = session['total_points'] + len(word) 
-    print(session['total_points'])
